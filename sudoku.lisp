@@ -1,11 +1,9 @@
 (defun contains-duplicates? (configuration)
-  (if configuration
-      (let ((first (first configuration))
-	    (rest (rest configuration)))
-	(if (member first rest :test #'=)
-	    t
-	    (contains-duplicates? rest)))
-      nil))
+  (when configuration
+    (let ((first (first configuration))
+	  (rest (rest configuration)))
+      (or (member first rest :test #'=)
+	  (contains-duplicates? rest)))))
 
 (defun possibilities (target num-squares)
   (if (< target 1)
