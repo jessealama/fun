@@ -41,9 +41,8 @@
 	((< num-squares 1)
 	 nil)
 	((= num-squares 1)
-	 (if (< target 10)
-	     (list (list target))
-	     nil))
+	 (when (< target 10)
+	   (list (list target))))
 	(t
 	 (loop
 	    with more = nil
