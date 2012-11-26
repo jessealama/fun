@@ -1,3 +1,33 @@
+(defmacro contains (x n)
+  `(member ,n ,x :test #'=))
+
+(defun contains-1? (x)
+  (contains x 1))
+
+(defun contains-2? (x)
+  (contains x 2))
+
+(defun contains-3? (x)
+  (contains x 3))
+
+(defun contains-4? (x)
+  (contains x 4))
+
+(defun contains-5? (x)
+  (contains x 5))
+
+(defun contains-6? (x)
+  (contains x 6))
+
+(defun contains-7? (x)
+  (contains x 7))
+
+(defun contains-8? (x)
+  (contains x 8))
+
+(defun contains-9? (x)
+  (contains x 9))
+
 (defun contains-duplicates? (configuration)
   (when configuration
     (let ((first (first configuration))
