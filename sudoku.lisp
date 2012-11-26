@@ -35,25 +35,32 @@
       (or (member first rest :test #'=)
 	  (contains-duplicates? rest)))))
 
-(defun sort-< (list)
-  (sort list #'<))
-
 (defun possibilities (target num-squares)
-  (cond ((< target 1) nil)
-	((< num-squares 1) nil)
-	((= num-squares 1) (when (< target 10) (list (list target))))
+  (cond ((< target 1)
+	 nil)
+	((< num-squares 1)
+	 nil)
+	((= num-squares 1)
+	 (if (< target 10)
+	     (list (list target))
+	     nil))
 	(t
 	 (loop
 	    with more = nil
 	    for i from 1 upto 9
-	    for smaller = (possibilities (- target i) (1- num-squares))
-	    for candidates = (mapcar #'(lambda (possibility)
-					 (append (list i)
-						 possibility))
-				     smaller)
 	    do
-	      (setf more (append more (remove-if #'contains-duplicates?
-						 candidates)))
+	      (let ((smaller (possibilities (- target i)
+					    (1- num-squares))))
+		(let ((candidates (mapcar #'(lambda (possibility)
+					      (append (list i)
+						      possibility))
+					  smaller)))
+		  ;; (break "candidates = ~a" candidates)
+		  (let ((trimmed (remove-if #'contains-duplicates?
+					    candidates)))
+		    (setf more (append more trimmed)))))
 	    finally
-	      (return (remove-duplicates (mapcar #'sort-< more)
-					 :test #'equalp))))))
+	      (setf more (mapcar #'(lambda (possibility)
+				     (sort possibility #'<))
+				 more))
+	      (return (remove-duplicates more :test #'equalp))))))
