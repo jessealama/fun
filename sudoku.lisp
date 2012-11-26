@@ -63,7 +63,5 @@
 					    candidates)))
 		    (setf more (append more trimmed)))))
 	    finally
-	      (setf more (mapcar #'(lambda (possibility)
-				     (sort possibility #'<))
-				 more))
-	      (return (remove-duplicates more :test #'equalp))))))
+	      (return (remove-duplicates (mapcar #'sort-< more)
+					 :test #'equalp))))))
