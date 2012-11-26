@@ -35,6 +35,10 @@
       (or (member first rest :test #'=)
 	  (contains-duplicates? rest)))))
 
+(defun sort-< (list)
+  (let ((sorted (sort list #'<)))
+    sorted))
+
 (defun possibilities (target num-squares)
   (cond ((< target 1)
 	 nil)
