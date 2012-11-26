@@ -58,7 +58,6 @@
 					      (append (list i)
 						      possibility))
 					  smaller)))
-		  ;; (break "candidates = ~a" candidates)
 		  (let ((trimmed (remove-if #'contains-duplicates?
 					    candidates)))
 		    (setf more (append more trimmed)))))
